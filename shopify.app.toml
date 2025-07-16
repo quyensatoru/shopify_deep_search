@@ -3,7 +3,7 @@
 client_id = "1b02dd7fe629896c28bff027c9981946"
 name = "Dev Quyen Deep Search"
 handle = "dev-quyen-deep-search"
-application_url = "https://61f33a41bed2.ngrok-free.app"
+application_url = "https://8eae08e21abd.ngrok-free.app/"
 embedded = true
 
 [access_scopes]
@@ -28,9 +28,9 @@ api_version = "2025-07"
 
 [auth]
 redirect_urls = [
-  "https://61f33a41bed2.ngrok-free.app/auth/callback",
-  "https://61f33a41bed2.ngrok-free.app/auth/shopify/callback",
-  "https://61f33a41bed2.ngrok-free.app/api/auth/callback"
+  "https://8eae08e21abd.ngrok-free.app//auth/callback",
+  "https://8eae08e21abd.ngrok-free.app//auth/shopify/callback",
+  "https://8eae08e21abd.ngrok-free.app//api/auth/callback"
 ]
 
 [pos]
