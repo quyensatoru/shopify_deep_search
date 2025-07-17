@@ -4,9 +4,11 @@ import {
   AppDistribution,
   shopifyApp,
 } from "@shopify/shopify-app-remix/server";
-import { PrismaSessionStorage } from "@shopify/shopify-app-session-storage-prisma";
-import { MongoDBSessionStorage } from "@shopify/shopify-app-session-storage-mongodb";
-import * as process from "node:process";
+import {MemorySessionStorage} from "@shopify/shopify-app-session-storage-memory";
+import {SQLiteSessionStorage} from "@shopify/shopify-app-session-storage-sqlite";
+import webhooks from "./webhooks";
+
+const cache = `${process.cwd()}/database.sqlite`;
 
 const shopify = shopifyApp({
   apiKey: process.env.SHOPIFY_API_KEY,
@@ -15,14 +17,32 @@ const shopify = shopifyApp({
   scopes: process.env.SCOPES?.split(","),
   appUrl: process.env.SHOPIFY_APP_URL || "",
   authPathPrefix: "/auth",
-  sessionStorage: new MongoDBSessionStorage(
-    new URL(process.env.MONGODB_URI || ""),
-    process.env.DB_NAME || ""
-  ),
+  sessionStorage: process.env.NODE_ENV === "development" ? new MemorySessionStorage() : new SQLiteSessionStorage(cache),
   distribution: AppDistribution.AppStore,
   future: {
     unstable_newEmbeddedAuthStrategy: true,
     removeRest: true,
+  },
+  hooks: {
+    afterAuth: async ({session}) => {
+      // await shopify.registerWebhooks({session: session});
+      try {
+        await fetch(`${process.env.API_URL}/shop`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...session
+          })
+        })
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  },
+  webhooks: {
+    ...webhooks,
   },
   ...(process.env.SHOP_CUSTOM_DOMAIN
     ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
