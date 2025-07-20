@@ -1,4 +1,5 @@
-import { DeliveryMethod, WebhookHandler } from "@shopify/shopify-api";
+import {DeliveryMethod, WebhookHandler} from "@shopify/shopify-api";
+
 function noop () {}
 
 export default {
@@ -12,4 +13,8 @@ export default {
     callbackUrl: `${process.env.API_URL}/webhook/app/uninstalled`,
     callback: noop
   },
+  BULK_OPERATIONS_FINISH: {
+    deliveryMethod: DeliveryMethod.Http,
+    callbackUrl: `${process.env.API_URL}/webhook/bulk_operations/finish`
+  }
 } as {[key: string]: WebhookHandler};
