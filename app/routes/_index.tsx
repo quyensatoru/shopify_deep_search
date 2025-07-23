@@ -2,8 +2,6 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { login } from "../shopify.server";
 
-import styles from "./styles.module.css";
-
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
 
@@ -13,3 +11,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   return { showForm: Boolean(login) };
 };
+
+export default function Index() {
+  return null
+}

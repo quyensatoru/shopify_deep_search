@@ -25,8 +25,9 @@ const shopify = shopifyApp({
   },
   hooks: {
     afterAuth: async ({session}) => {
-      // await shopify.registerWebhooks({session: session});
       try {
+        console.log("refresh session")
+        await shopify.registerWebhooks({session: session});
         await fetch(`${process.env.API_URL}/shop`, {
           method: "POST",
           headers: {

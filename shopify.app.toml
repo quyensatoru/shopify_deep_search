@@ -3,8 +3,11 @@
 client_id = "1b02dd7fe629896c28bff027c9981946"
 name = "Dev Quyen Deep Search"
 handle = "dev-quyen-deep-search"
-application_url = "https://f02d83afd9e4.ngrok-free.app/"
+application_url = "https://sell-federal-pre-insertion.trycloudflare.com"
 embedded = true
+
+[tunnel]
+provider = "cloudflare"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
@@ -20,9 +23,9 @@ api_version = "2025-07"
 
 [auth]
 redirect_urls = [
-  "https://f02d83afd9e4.ngrok-free.app//auth/callback",
-  "https://f02d83afd9e4.ngrok-free.app//auth/shopify/callback",
-  "https://f02d83afd9e4.ngrok-free.app//api/auth/callback"
+  "https://sell-federal-pre-insertion.trycloudflare.com/auth/callback",
+  "https://sell-federal-pre-insertion.trycloudflare.com/auth/shopify/callback",
+  "https://sell-federal-pre-insertion.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
